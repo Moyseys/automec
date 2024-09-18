@@ -1,5 +1,8 @@
 import express, { Express } from 'express'
 
+//Routers
+import vehicle from './routers/vehicle'
+
 export default class App {
   private app = express()
 
@@ -9,7 +12,7 @@ export default class App {
   }
   
   private router() {
-    
+    this.app.use("/vehicle", vehicle)
   }
 
   private middleware() {
