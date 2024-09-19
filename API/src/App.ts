@@ -2,6 +2,7 @@ import express, { Express } from 'express'
 
 //Routers
 import vehicle from './routers/vehicle'
+import part from './routers/part'
 
 export default class App {
   private app = express()
@@ -13,6 +14,7 @@ export default class App {
   
   private router() {
     this.app.use("/vehicle", vehicle)
+    this.app.use("/part", part)
   }
 
   private middleware() {

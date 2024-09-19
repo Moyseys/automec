@@ -1,32 +1,6 @@
-import { Sequelize } from "sequelize"
+import DatabaseConnection from "./DatabaseConnection"
+//import "../models/associations"
 
-class DatabaseConnection {
-  private sequelize: Sequelize
+const connAutomec = new DatabaseConnection("automec", "root", "senhamysql", "localhost")
 
-  constructor(database: string, username: string, password: string, host: string = 'localhost') {
-    this.sequelize = new Sequelize(database, username, password, {
-      host: host,
-      dialect: 'mysql'
-    })
-  }
-
-  public async connect() {
-    try {
-      await this.sequelize.authenticate()
-      console.log('Connection has been established successfully.')
-    } catch (error) {
-      console.error('Unable to connect to the database:', error)
-    }
-  }
-
-  public async close() {
-    try {
-      await this.sequelize.close()
-      console.log('Connection closed successfully.')
-    } catch (error) {
-      console.error('Error closing the connection:', error)
-    }
-  }
-}
-
-export default DatabaseConnection
+export { connAutomec }
