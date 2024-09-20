@@ -1,0 +1,23 @@
+<div class="sidebar">
+  <div class="btnHome" routerLink="/" routerLinkActive="active">
+    <i-lucide [img]="Home" [size]="iconSize" [strokeWidth]="iconStroke" class="iconHome"></i-lucide>
+  </div>
+  <div class="functionalities">
+    <div
+      class="btnFunctionality"
+      [ngClass]="{ 'activeRouter': isCurrentRouter('/vehicle') }"
+      routerLink="/vehicle"
+      [routerLinkActive]="isActiveRouter('/vehicle')"
+      >
+      <i-lucide [img]="CarFront" [size]="iconSize" [strokeWidth]="iconStroke" class="iconCar"/>
+    </div>
+    <div
+      class="btnFunctionality"
+      [ngClass]="{ 'activeRouter': isCurrentRouter('/part') }"
+      routerLink="/part"
+      [routerLinkActive]="isActiveRouter('/part')"
+    >
+      <i-lucide [img]="Wrench" [size]="iconSize" [strokeWidth]="iconStroke" class="iconPart"/>
+    </div>
+  </div>
+</div>

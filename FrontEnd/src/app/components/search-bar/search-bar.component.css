@@ -1,0 +1,13 @@
+.containerSearch{
+  display: flex;
+  align-items: center;
+}
+
+.search{
+  flex: 5;
+}
+
+.select{
+  flex: 1;
+}
+

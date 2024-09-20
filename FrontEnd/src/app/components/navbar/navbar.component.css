@@ -1,0 +1,6 @@
+.navbar{
+  background-color: rgb(255, 255, 255);
+
+  padding: 1.5em;
+  width: calc(100vw - 80px);
+}

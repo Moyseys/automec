@@ -1,0 +1,15 @@
+<search tuiSearch >
+  <form [formGroup]="form">
+    <fieldset tuiTextfieldSize="s">
+      <tui-textfield class="select" tuiChevron>
+        <select formControlName="select" placeholder="Selecione um campo" tuiTextfield></select>
+        <tui-data-list-wrapper *tuiTextfieldDropdown [items]="items" />
+      </tui-textfield>
+
+      <tui-textfield class="input" iconStart="@tui.search">
+        <input formControlName="search" placeholder="Digite algo para pesquisar..." tuiTextfield />
+      </tui-textfield>
+
+    </fieldset>
+  </form>
+</search>

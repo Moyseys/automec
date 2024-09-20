@@ -1,0 +1,21 @@
+<app-navbar />
+<div class="containerHome">
+  <div class="titles">
+    <h1 class="title">Bem-vindo ao cadastro de <span class="prominence">peças veiculares</span></h1>
+    <h3 class="subTitle">Selecione uma opção para começar</h3>
+  </div>
+  <div class="containerBtns">
+    <div class="cardBtn" routerLink="/vehicle" routerLinkActive="active">
+      <div class="btn">
+        <i-lucide [img]="CarFront" [size]="iconSize" [strokeWidth]="iconStroke" class="iconCar"></i-lucide>
+      </div>
+      <h3 class="description">Cadastro de <span class="prominence">Veículo</span></h3>
+    </div>
+    <div class="cardBtn" routerLink="/part" routerLinkActive="active">
+      <div class="btn">
+        <i-lucide [img]="Wrench" [size]="iconSize" [strokeWidth]="iconStroke" class="iconWrench"></i-lucide>
+      </div>
+      <h3 class="description">Cadastro de <span class="prominence">Peça</span></h3>
+    </div>
+  </div>
+</div>

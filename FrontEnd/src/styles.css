@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.containerMain{
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  justify-items: start;
+}
+
+.main{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  justify-items: start;
+}
+
+.card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
