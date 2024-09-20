@@ -11,23 +11,16 @@
   flex-direction: column;
   justify-content: center;
 
-  row-gap: 10em;
-}
-
-.titles{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-
-  row-gap: 2em;
+  row-gap: 7em;
 }
 
 .containerBtns{
   display: flex;
   align-items: center;
   justify-content: center;
-  column-gap: 4em;
+  max-width: 70vw;
+
+  column-gap: 8em;
 }
 
 .cardBtn{
@@ -45,29 +38,37 @@
   flex-direction: column;
   justify-content: center;
 
-  width: 150px;
-  height: 150px;
-  padding: 3em;
+  padding: 4em;
+
   border: 3px solid #333338;
   background-color: #FFFDFA;
   border-radius: 20px;
 }
 
 .description{
-  font-size: 40px;
+  font-size: 30px;
 }
 
 .iconCar, .iconWrench{
   color: #F59D2A;
 }
 
+.titles {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  row-gap: 2em;
+}
+
 .title{
-  font-size: 48px;
+  font-size: 40px;
   font-weight: bold;
   color: #333338;
 }
 
 .subTitle{
-  font-size: 32px;
+  font-size: 28px;
   color: #333338bf;
 }

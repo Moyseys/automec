@@ -21,6 +21,6 @@ export class HomeComponent {
   readonly Wrench = Wrench;
   readonly CarFront = CarFront;
 
-  readonly iconStroke = 2;
-  readonly iconSize = 110;
+  readonly iconStroke = 1.5;
+  readonly iconSize = 100;
 }

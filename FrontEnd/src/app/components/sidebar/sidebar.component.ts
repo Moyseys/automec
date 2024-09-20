@@ -21,8 +21,8 @@ export class SidebarComponent {
   readonly Wrench = Wrench;
   readonly CarFront = CarFront;
 
-  readonly iconStroke = 2.5;
-  readonly iconSize = 35;
+  readonly iconStroke = 2;
+  readonly iconSize = 30;
 
   public currentRouter: String;
 
