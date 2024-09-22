@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, output } from '@angular/core';
 import { LucideAngularModule, Trash, Plus } from "lucide-angular"
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 
@@ -14,10 +14,15 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 })
 export class FloatNavComponent {
   @Input() title: String = "";
+  @Output() toggleForm = new EventEmitter()
 
   readonly Trash = Trash
   readonly Plus = Plus
 
   readonly iconStroke = 2.5;
   readonly iconSize = 30;
+
+  protected onClickBtnPlus() {
+    this.toggleForm.emit()
+  }
 }

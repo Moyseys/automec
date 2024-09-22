@@ -1,4 +1,4 @@
-import { Model, Sequelize } from 'sequelize'
+import { Model, Sequelize, where } from 'sequelize'
 import Part from '../models/PartModel'
 import PartVehicle from '../models/PartVehicleModel'
 import Vehicle from '../models/VehicleModel'
@@ -17,12 +17,20 @@ export default class PartService{
     this.sequelize = sequelize
   }
 
-  async getAllParts() {
-    const allParts = await Part.findAll({
-      include: this.VehicleModel
+  async getParts(offset: number, limit: number, brand: string, model: string) {
+    const { count, rows: parts } = await Part.findAndCountAll({
+      limit: limit,
+      offset: offset,
+      include: {
+        model: this.VehicleModel,
+        where: {
+          brand,
+          model
+        }
+      },
     });
 
-    return allParts
+    return { count, parts }
   }
 
   async verifyPartNumber(partNumber: String) {

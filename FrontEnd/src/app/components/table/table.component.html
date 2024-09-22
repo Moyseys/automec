@@ -1,23 +1,104 @@
-<cdk-virtual-scroll-viewport #viewport appendOnly tuiScrollable class="viewport tui-zero-scrollbar" [itemSize]="45"
-  [maxBufferPx]="500" [minBufferPx]="400">
-<table tuiTable class="table" [columns]="columns">
+<table tuiTable [size]="size" [style.width.rem]="58">
   <thead>
-    <tr tuiThGroup>
-      <th 
-      tuiTh [resizable]="true"
-      [style.top.px]="-(viewport.getOffsetToRenderedContentStart() || 0)" 
-      >
-        Name
+    <tr>
+      <th tuiTh>
+        <div [tuiCell]="size">
+          <input tuiCheckbox type="checkbox" [ngModel]="checked" [size]="size === 'l' ? 'm' : 's'"
+            (ngModelChange)="onCheck($event)" />
+        </div>
       </th>
-      <th tuiTh>Balance</th>
+      <th tuiTh>Id</th>
+      <th tuiTh>Part Number</th>
+      <th tuiTh>Marca</th>
+      <th tuiTh>Modelo</th>
+      <th tuiTh [style.width.rem]="10">
+        Veículos
+      </th>
+      <th tuiTh>Data de criação</th>
+      <th tuiTh>Data de última atualização</th>
     </tr>
   </thead>
-  <tbody tuiTbody [data]="data">
-    <tr *ngFor="let item of data" tuiTr>
-      <td *tuiCell="'balance'" tuiTd>
-        {{ item.balance | tuiFormatNumber | async }}
+  <tbody tuiTbody>
+    <tr *ngFor="let item of data()">
+      <td tuiTd>
+        <div [tuiCell]="size">
+          <input tuiCheckbox type="checkbox" [size]="size === 'l' ? 'm' : 's'" [(ngModel)]="item.selected" />
+        </div>
+      </td>
+      <td tuiTd>
+        <div [tuiCell]="size">
+          <span tuiTitle>
+            {{ item.id }}
+          </span>
+        </div>
+      </td>
+      <td tuiTd>
+        <div [tuiCell]="size">
+          <span tuiTitle>
+            {{ item.partNumber }}
+          </span>
+        </div>
+      </td>
+      <td tuiTd>
+        <div [tuiCell]="size">
+          <span tuiTitle>
+            {{ item.brand }}
+          </span>
+        </div>
+      </td>
+      <td tuiTd>
+        <div [tuiCell]="size">
+          <span tuiTitle>
+            {{ item.model }}
+          </span>
+        </div>
+      </td>
+      <td tuiTd>
+        <tui-items-with-more [style.gap.rem]="0.25">
+          <ng-container *ngFor="let vehicle of item.Vehicles">
+            <tui-badge *tuiItem>{{vehicle.model}}</tui-badge>
+          </ng-container>
+          <ng-template let-number tuiMore>
+            <button
+              appearance="icon"
+              tuiDropdownAlign="right"
+              tuiDropdownOpen
+              tuiLink
+              type="button"
+              [pseudo]="true"
+              [tuiDropdown]="dropdown">
+              + {{ item.Vehicles.length - number - 1 }}
+            </button>
+            <ng-template #dropdown>
+              <div tuiStatus [style.padding.rem]="1">
+                <ng-container *ngFor="let vehicle of item.Vehicles; let index = index">
+                  <tui-badge *ngIf="index > number">{{ vehicle.model }}</tui-badge>
+                </ng-container>
+              </div>
+            </ng-template>
+          </ng-template>
+        </tui-items-with-more>
+      </td>
+      <td tuiTd>
+        <div [tuiCell]="size">
+          <span tuiTitle>
+            {{ item.createdAt }}
+          </span>
+        </div>
+      </td>
+      <td tuiTd>
+        <div [tuiCell]="size">
+          <span tuiTitle>
+            {{ item.updatedAt }}
+          </span>
+        </div>
       </td>
     </tr>
   </tbody>
 </table>
-</cdk-virtual-scroll-viewport>
+<tui-table-pagination
+[items]="sizeOptions"
+[total]="total$.getValue()"
+(paginationChange)="onPagination($event)"
+/>
+

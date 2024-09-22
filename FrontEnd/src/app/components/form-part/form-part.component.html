@@ -1,0 +1,46 @@
+<div class="container">
+  <form class="form" [formGroup]="partForm" (ngSubmit)="onSubmit()">
+    <div class="title">
+      <h1>Cadastro de <span class="prominence">Veículos</span></h1>
+    </div>
+    <div class="containerFields">
+      <div class="formColl">
+        <label tuiLabel><strong>PartNumber</strong></label>
+        <input class="input" type="text" formControlName="partNumber">
+      </div>
+      <div class="formColl">
+        <label tuiLabel><strong>Marca</strong></label>
+        <input class="input" type="text" formControlName="brand">
+      </div>
+      <div class="formColl">
+        <label tuiLabel><strong>Modelo</strong></label>
+        <input class="input" type="text" formControlName="model">
+      </div>
+    </div>
+    <div class="containerFields">
+      <div class="formColl">
+        <label tuiLabel><strong>Veículos</strong></label>
+        <tui-multi-select
+          (click)="onSelectFocus()"
+          class="multiSelect"
+          formControlName="vehicles"
+          [editable]="false"
+          [tuiTextfieldCleaner]="true"
+          [tuiTextfieldLabelOutside]="true"
+          [disabled]="true"
+          >
+          <tui-data-list-wrapper *tuiDataList tuiMultiSelectGroup [items]="items">
+          </tui-data-list-wrapper>
+        </tui-multi-select>
+      </div>
+    </div>
+    <div class="containerBtns">
+      <button size="l" tuiButton type="button" class="btnBack" (click)="onClickBtnBack()">
+        Voltar
+      </button>
+      <button appearance="flat" size="l" tuiButton type="submit" class="btnSave">
+        Salvar
+      </button>
+    </div>
+  </form>
+</div>

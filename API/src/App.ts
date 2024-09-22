@@ -1,4 +1,5 @@
 import express, { Express } from 'express'
+import cors from "cors"
 
 //Routers
 import vehicle from './routers/vehicle'
@@ -8,6 +9,13 @@ export default class App {
   private app = express()
 
   constructor() {
+    const corsOptions = {
+      origin: '*',
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],      
+      allowedHeaders: [], 
+      optionsSuccessStatus: 200  
+    };
+    this.app.use(cors(corsOptions))
     this.middleware()
     this.router()
   }
@@ -24,4 +32,6 @@ export default class App {
   public getApp(): Express {
     return this.app
   }
+
+  
 }
