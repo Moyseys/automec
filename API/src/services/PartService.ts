@@ -20,6 +20,9 @@ export default class PartService {
   async getParts(offset: number, limit: number, brand: string, model: string) {
     const include: Includeable = {
       model: this.VehicleModel,
+      through: {
+        attributes: []
+      }
     }
 
     if (brand && model) include.where = { brand, model }
@@ -28,7 +31,7 @@ export default class PartService {
       limit: limit,
       offset: offset,
       include: include,
-      distinct: true
+      distinct: true,
     });
 
 

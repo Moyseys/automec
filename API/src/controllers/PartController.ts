@@ -70,7 +70,7 @@ export default class PartController{
       }
 
       const existNewPartNumber = await this.partService.verifyPartNumber(newPartNumber)
-      if (existNewPartNumber) {
+      if (existNewPartNumber && partNumber !== newPartNumber) {
         return res.status(400).json({ error: `O partNumber: ${newPartNumber}, já existe!` }) 
       }
       
