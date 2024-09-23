@@ -1,27 +1,97 @@
-# FrontEnd
+# Automec
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.4.
+## Links
 
-## Development server
+- [Automec repositório](https://github.com/Moyseys/automec)
+- [Design Figma](https://www.figma.com/design/Xxo5upk6sEN3jDbZsZLfI8/automec?node-id=0-1&t=oo1xklXGsIlBgE9S-1)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Inicialização
 
-## Code scaffolding
+### Instale as dependências do Back-End.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+cd API
+npm install
+```
 
-## Build
+### Configure as variáveis de ambiente.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Crie um arquivo `.env` na raiz da pasta API e preencha as variáveis de acordo com seu ambiente.
 
-## Running unit tests
+```bash
+DATABASE=
+DATABASE_HOST=
+DATABASE_PORT=
+DATABASE_USERNAME=
+DATABASE_PASSWORD=
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+API_PORT=
+```
 
-## Running end-to-end tests
+### Criação do banco de dados.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Faça a criação do banco de dados.
 
-## Further help
+```bash
+CREATE DATABASE automec
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Migração de tabela.
+
+Utilize a CLI do `Sequelize` para realizar a criação das tabelas.
+
+**Obs:** deve-se estar na pasta `/API` para executar a migração
+
+```bash
+npx sequelize db:migrate       
+```
+
+### Semeação de tabelas.
+
+Utilize a CLI do `Sequelize` para semear suas tabelas.
+
+**Obs:** deve-se estar na pasta `/API` para executar a migração
+
+```bash
+npx sequelize db:seed:all
+```
+
+### Inicie o Back-End.
+
+```bash
+npm run build
+npm start
+```
+
+### Instale as dependências do Front-End.
+
+```bash
+cd FrontEnd
+npm install
+```
+
+### Inicie o Front-End.
+
+```bash
+npm start
+```
+
+# Tecnologias
+
+### Front-End
+
+- Angular.
+- TaigaUI (Biblioteca de componentes).
+- XLSX (Biblioteca para realizar exportação de planilhas).
+- Jasmine (Framework de testes).
+
+### Back-End
+
+- NodeJs.
+- Express.
+- Sequelize (ORM).
+- Mysql.
+
+### Design
+
+- Figma.
