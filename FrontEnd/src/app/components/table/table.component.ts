@@ -61,10 +61,17 @@ export class TableComponent {
   protected dataTable = signal<DataTable[]>([])
 
   protected readonly total$ = new BehaviorSubject(0)
-  protected readonly limit$ = new BehaviorSubject(10)
-  protected readonly page$ = new BehaviorSubject(1)
+  protected readonly pagination$ = new BehaviorSubject<{
+    limit: number,
+    page: number
+  }>({
+    limit: 10,
+    page: 1
+  })
   private readonly alertService = inject(TuiAlertService)
 
+   protected readonly sorter$ = new BehaviorSubject<string>('id'); // Coluna para ordenação
+  protected readonly direction$ = new BehaviorSubject<'asc' | 'desc'>('asc'); // Direção da ordenação
   protected sizeOptions = [5, 10, 15, 30, 50, this.total$.getValue()]
 
   constructor(private service: PartService) { }
@@ -72,8 +79,8 @@ export class TableComponent {
   ngOnInit(): void {
     this.onResize()
 
-    combineLatest([this.page$, this.limit$]).subscribe(([page, size]) => {
-      this.updateDataTable(page, size)
+    this.pagination$.subscribe(({page, limit}) => {
+      this.updateDataTable(page, limit)
     })
   }
 
@@ -87,7 +94,8 @@ export class TableComponent {
     this.service.deleteParts(partsIds).subscribe({
       next: (data) => {
         this.showNotification('Sucesso', String(data), 'success')
-        this.updateDataTable(this.page$.getValue(), this.limit$.getValue())
+        const { page, limit } = this.pagination$.getValue()
+        this.updateDataTable(page, limit)
       },
       error: (error: HttpErrorResponse) => {
         const errorMessage = error.error || 'Ocorreu um erro inesperado. Tente novamente mais tarde.'
@@ -96,12 +104,7 @@ export class TableComponent {
     })
   }
 
-  public updateDataTable(page: number | null, limit: number | null, brand?: string, model?: string): void {
-    if (!page || !limit) {
-      page = this.page$.getValue()
-      limit = this.limit$.getValue()
-    }
-
+  public updateDataTable(page: number | '', limit: number | '', brand?: string, model?: string): void {
     this.service.getPart(page, limit, brand || "", model || "").subscribe({
       next: (data) => {
         const { total, parts } = data
@@ -176,8 +179,10 @@ export class TableComponent {
   }
 
   protected onPagination({ page, size }: TuiTablePaginationEvent): void {
-    this.page$.next(page + 1)
-    this.limit$.next(size)
+    this.pagination$.next({
+      page: page + 1,
+      limit: size
+    })
   }
 
   protected showNotification(title: string, message: string, appearance: 'success' | 'destructive' | 'error' | 'warning'): void {

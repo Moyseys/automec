@@ -12,9 +12,10 @@
 
   overflow-x: auto;
   max-width: 100%;
-  width: 65vw;
 
+  width: 65vw;
   border-radius: 5px;
+  padding-bottom: 3em;
 }
 
 .pagination{

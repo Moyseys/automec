@@ -65,4 +65,9 @@ export class PartService {
 
     return res
   }
+
+
+  get getClient(): HttpClient{
+    return this.client
+  }
 }

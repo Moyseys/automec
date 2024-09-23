@@ -10,16 +10,19 @@
 }
 
 .containerMain{
-  width: 100%;
+  width: calc(100% - 7vh);
   display: flex;
   align-items: start;
   justify-content: start;
   justify-items: start;
 
-  /* overflow-x: hidden; */
+  margin-left: 7vh;
+
+  overflow-x: hidden;
 }
 
 .main{
+  overflow-x: hidden;
   width: 100%;
 
   display: flex;

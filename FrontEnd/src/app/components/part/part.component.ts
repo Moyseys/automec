@@ -1,9 +1,11 @@
 import { Component, signal, ViewChild } from '@angular/core';
+
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { FloatNavComponent } from '../float-nav/float-nav.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { TableComponent } from "../table/table.component";
 import { FormPartComponent } from '../form-part/form-part.component';
+
 import DataTable from '../../../interfaces/DataTable';
 import SearchObj from '../../../interfaces/SearchObj';
 
@@ -21,7 +23,7 @@ import SearchObj from '../../../interfaces/SearchObj';
   styleUrl: './part.component.css'
 })
 export class PartComponent {
-  protected showForm = signal<boolean>(true)
+  protected showForm = signal<boolean>(false)
   @ViewChild('tableComponent') tableComponent!: TableComponent;
 
   protected partData = signal<DataTable | null>(null);
