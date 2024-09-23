@@ -3,12 +3,7 @@
   <div class="main">
     <app-navbar />
     <div class="card">
-      @if(!showForm()){
-        <app-float-nav (toggleForm)="toggleShowForm()" title="Veículos" />
-        <app-table />
-      } @else {
-        <app-form-part (totoggleForm)="toggleShowForm()"/>
-      }
+      <app-float-nav title="Veículos" />
     </div>
   </div>
 </div>

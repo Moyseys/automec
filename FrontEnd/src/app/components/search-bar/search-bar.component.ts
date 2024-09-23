@@ -1,5 +1,5 @@
 import {NgForOf} from '@angular/common';
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, inject, Output} from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {tuiCountFilledControls} from '@taiga-ui/cdk';
@@ -12,7 +12,9 @@ import {
     TuiSwitch,
 } from '@taiga-ui/kit';
 import {TuiSearch} from '@taiga-ui/layout';
-import {map} from 'rxjs';
+
+
+type Column = 'Id' | 'Marca' | 'Modelo'
 
 @Component({
 	selector: 'app-searchBar',
@@ -29,18 +31,37 @@ import {map} from 'rxjs';
     providers: [
     {
       provide: 'columns',
-      useValue: ['Id', 'Marca', 'Modelo', 'Ano'],
+      useValue: [{label: 'Id', column: "id"}, {label: 'Marca', column: "brand"},{label: 'Modelo', column: "model"}],
     },
   ],
-    templateUrl: './search-bar.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './search-bar.component.html',
+  styleUrl: './search-bar.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBarComponent {
-    protected readonly form = new FormGroup({
-        search: new FormControl(),
-        select: new FormControl(),
-    });
+    @Output() searchAction= new EventEmitter()
 
-    protected readonly items = inject<readonly string[]>('columns' as any)
+    protected readonly items = inject<readonly Column[]>('columns' as any)
+    protected hashTable: { [key in Column]: { label: Column, column: string} } = {
+      Id: { label: 'Id', column: 'id' },
+      Marca: { label: 'Marca', column: 'brand' },
+      Modelo: { label: 'Modelo', column: 'model' },
+    };
+
+    protected labelsArray = ['Id', 'Marca', 'Modelo'];
+
+    protected searchForm = new FormGroup({
+      searchField: new FormControl<String>('')
+    })
+
+  protected onSubmit() {
+    const {searchField} = this.searchForm.value
+
+    const searchObj = {
+        textSearch: searchField,
+      }
+
+      this.searchAction.emit(searchObj)
+    }
 }
 

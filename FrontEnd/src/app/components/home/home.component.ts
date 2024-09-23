@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { LucideAngularModule, Wrench, CarFront} from 'lucide-angular';
 import { TuiButton } from '@taiga-ui/core';
@@ -22,5 +22,15 @@ export class HomeComponent {
   readonly CarFront = CarFront;
 
   readonly iconStroke = 1.5;
-  readonly iconSize = 100;
+  iconSize = 100;
+
+  ngOnInit() {
+    this.onResize()
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: Event) {
+    const width = window.innerWidth;
+    this.iconSize = width < 920 ? 70 : 100;
+  }
 }

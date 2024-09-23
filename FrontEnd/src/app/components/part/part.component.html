@@ -3,7 +3,16 @@
   <div class="main">
     <app-navbar />
     <div class="card">
-      <app-float-nav title="Peça" />
+      @if(!showForm()){
+      <app-float-nav
+        (toggleForm)="toggleShowForm()"
+        (deleteEvent)="deleteValuesInTable()"
+        (searchAction)="searchActionHanlder($event)"
+        title="Peça" />
+      <app-table (clickRow)="clickRow($event)" #tableComponent />
+      } @else {
+      <app-form-part  [partData]="partData()" (toggleForm)="toggleShowForm()" />
+      }
     </div>
   </div>
 </div>

@@ -12,7 +12,7 @@ const partController = new PartController(partService)
 
 router.get("/", partController.index.bind(partController))
 router.post("/", partController.store.bind(partController))
-router.put("/:id", partController.update.bind(partController))
-router.delete("/:id", partController.delete.bind(partController))
+router.put("/:partNumber", partController.update.bind(partController))
+router.delete("/", partController.delete.bind(partController))
 
 export default router

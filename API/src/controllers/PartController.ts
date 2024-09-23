@@ -17,8 +17,8 @@ export default class PartController{
 
       console.log(brand, model);
       
-      if (!limit || !page || !brand || !model) {
-        return res.status(400).json({ error: "Limit, Page, Brand ou Model inválidos" })
+      if (!limit || !page ) {
+        return res.status(400).json({ error: "Limit, Page inválidos" })
       }
 
       const offset = (page - 1) * limit
@@ -45,33 +45,38 @@ export default class PartController{
       }
 
       const existPartNumver = await this.partService.verifyPartNumber(partNumber)
-      if (!existPartNumver) {
+      if (existPartNumver) {
         return res.status(400).json({ error: `O partNumber: ${partNumber}, já existe!` }) 
       }
-
+      
+      const existVehicles = await this.partService.verifyVehiclesIds(vehiclesIds)
+      if (!existVehicles) {
+        return res.status(400).json({ error: `VehiclesIds inválidos!` }) 
+      }
+      
       const newPart = await this.partService.create(vehiclesIds, partNumber, brand, model)
 
       return res.status(200).json(newPart)
     } catch (error: any) {
       console.log(error )      
-      return res.status(500).json({ error: error.message })
+      return res.status(500).json("Ocorreu um erro interno, tente novamente mais tarde")
     }
   }
 
   public async update(req: Request, res: Response) {
     try {
-      const { id } = req.params
-      const { vehiclesIds, partNumber, brand, model} = req.body
-      if (!vehiclesIds || vehiclesIds.length <= 0 || !partNumber || !brand || !model) {
-        return res.status(400).json({ error: "Os campos 'vehiclesIds', 'brand', 'model' e 'partNumber' são obrigatórios." })
+      const { partNumber } = req.params
+      const { newPartNumber, vehiclesIds, brand, model} = req.body
+      if (!vehiclesIds || vehiclesIds.length <= 0 || !partNumber || !newPartNumber || !brand || !model) {
+        return res.status(400).json({ error: "Os campos 'newPartNumber', 'vehiclesIds', 'brand', 'model' e 'partNumber' são obrigatórios." })
       }
 
-      const existPartNumver = await this.partService.verifyPartNumber(partNumber)
-      if (!existPartNumver) {
-        return res.status(400).json({ error: `O partNumber: ${partNumber}, já existe!` }) 
+      const existNewPartNumber = await this.partService.verifyPartNumber(newPartNumber)
+      if (existNewPartNumber) {
+        return res.status(400).json({ error: `O partNumber: ${newPartNumber}, já existe!` }) 
       }
       
-      const newPart = await this.partService.update(id, vehiclesIds, partNumber, brand, model)
+      const newPart = await this.partService.update(vehiclesIds, partNumber, newPartNumber, brand, model)
 
       return res.status(200).json(newPart)
     } catch (error: any) {
@@ -81,12 +86,12 @@ export default class PartController{
 
   public async delete(req: Request, res: Response) {
     try {
-      const { id } = req.params
-      if (!id) {
-        return res.status(400).json({ error: "Os campos 'id' são obrigatórios." })
+      const { partsIds } = req.body
+      if (!partsIds || partsIds.length <= 0) {
+        return res.status(400).json({ error: "Os campos partsIds é inválido!" })
       }
 
-      const deleted = await this.partService.delete(id)
+      const deleted = await this.partService.delete(partsIds)
 
       return res.status(200).json(deleted)
     } catch (error: any) {

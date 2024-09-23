@@ -1,10 +1,10 @@
-.prominence{
-  color: #F59D2A;
+.prominence {
+  color: var(--tertiary-color);
 }
 
-.containerHome{
+.containerHome {
   width: 100vw;
-  margin-top: 5vh;
+  margin-top: 17vh;
 
   display: flex;
   align-items: center;
@@ -14,7 +14,7 @@
   row-gap: 7em;
 }
 
-.containerBtns{
+.containerBtns {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,7 +23,7 @@
   column-gap: 8em;
 }
 
-.cardBtn{
+.cardBtn {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -32,7 +32,7 @@
   row-gap: 1em;
 }
 
-.btn{
+.btn {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -40,17 +40,18 @@
 
   padding: 4em;
 
-  border: 3px solid #333338;
-  background-color: #FFFDFA;
+  border: 3px solid var(--primary-color);
+  background-color: var(--secondary-color) DFA;
   border-radius: 20px;
 }
 
-.description{
+.description {
   font-size: 30px;
 }
 
-.iconCar, .iconWrench{
-  color: #F59D2A;
+.iconCar,
+.iconWrench {
+  color: var(--tertiary-color);
 }
 
 .titles {
@@ -62,13 +63,137 @@
   row-gap: 2em;
 }
 
-.title{
+.title {
   font-size: 40px;
   font-weight: bold;
-  color: #333338;
+  color: var(--primary-color);
 }
 
-.subTitle{
+.subTitle {
   font-size: 28px;
-  color: #333338bf;
+  color: var(--primary-color) bf;
+}
+
+@media (max-width: 920px) {
+  .description {
+    font-size: 20px;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .subTitle {
+    font-size: 20px;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 2em;
+
+    border: 3px solid var(--primary-color);
+    background-color: var(--secondary-color) DFA;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 670px) {
+  .description {
+    font-size: 20px;
+  }
+
+  .titles {
+    row-gap: 1em;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .subTitle {
+    font-size: 15px;
+  }
+
+  .btn {
+    padding: 2em;
+
+    border: 2px solid var(--primary-color);
+  }
+
+  .iconCar,
+  .iconWrench {
+    color: var(--tertiary-color);
+  }
+
+  .containerBtns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 70vw;
+
+    column-gap: 3em;
+  }
+
+  .description {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 550px) {
+  .description {
+    font-size: 20px;
+  }
+
+  .titles {
+    width: 80%;
+    text-align: center;
+    row-gap: 1em;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subTitle {
+    font-size: 14px;
+  }
+
+  .btn {
+    padding: 2em;
+
+    border: 2px solid var(--primary-color);
+  }
+
+  .iconCar,
+  .iconWrench {
+    color: var(--tertiary-color);
+  }
+
+  .containerBtns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 70vw;
+
+    column-gap: 3em;
+  }
+
+  .cardBtn {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    row-gap: 0;
+  }
+
+  .description {
+    text-align: center;
+    font-size: 15px;
+    width: 150%;
+  }
 }

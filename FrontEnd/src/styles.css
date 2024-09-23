@@ -1,3 +1,9 @@
+:root {
+  --primary-color: #333338;
+  --secondary-color: #fff;
+  --tertiary-color: #F59D2A;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,6 +14,8 @@
   align-items: start;
   justify-content: start;
   justify-items: start;
+
+  overflow-x: hidden;
 }
 
 .main{
@@ -24,6 +32,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+
 }
 
 .prominence {

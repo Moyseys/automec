@@ -1,9 +1,9 @@
-import { Model, Sequelize, where } from 'sequelize'
+import { Includeable, Model, Sequelize, where } from 'sequelize'
 import Part from '../models/PartModel'
 import PartVehicle from '../models/PartVehicleModel'
 import Vehicle from '../models/VehicleModel'
 
-export default class PartService{
+export default class PartService {
   private PartModel: typeof Part
   private VehicleModel: typeof Vehicle
   private partVehicleModel: typeof PartVehicle
@@ -18,43 +18,57 @@ export default class PartService{
   }
 
   async getParts(offset: number, limit: number, brand: string, model: string) {
+    const include: Includeable = {
+      model: this.VehicleModel,
+    }
+
+    if (brand && model) include.where = { brand, model }
+
     const { count, rows: parts } = await Part.findAndCountAll({
       limit: limit,
       offset: offset,
-      include: {
-        model: this.VehicleModel,
-        where: {
-          brand,
-          model
-        }
-      },
+      include: include,
+      distinct: true
     });
+
+
 
     return { count, parts }
   }
 
   async verifyPartNumber(partNumber: String) {
-    return !!this.PartModel.findOne({
+    const exists = !! await this.PartModel.findOne({
       where: {
         partNumber: partNumber
       }
     })
+
+    return exists
+  }
+
+  async verifyVehiclesIds(vehiclesIds: number[]) {
+    try {
+      const vehicles = await this.VehicleModel.findAll({
+        where: {
+          id: vehiclesIds
+        }
+      })
+
+      if (!vehicles || vehicles.length < vehiclesIds.length) {
+        return false
+      }
+
+      return true
+    } catch (error) {
+      return 'Erro ao vereficar se veoculos existe.';
+    }
+
   }
 
   async create(vehiclesIds: number[], partNumber: String, brand: String, model: String) {
-    const vehicles = await this.VehicleModel.findAll({
-      where: {
-        id: vehiclesIds
-      }
-    })
-
-    if (!vehicles || vehicles.length < vehiclesIds.length) {
-      return "vehiclesIds inválidos!"
-    }
-
     const newPart = await this.PartModel.create({
       partNumber,
-      brand, 
+      brand,
       model
     })
 
@@ -71,17 +85,22 @@ export default class PartService{
 
     return newPart
   }
-  
-  async update(id: String, vehiclesIds: number[], partNumber: String, brand: String, model: String) {
+
+  async update(vehiclesIds: number[], partNumber: String, newPartNumber: String, brand: String, model: String) {
     const transaction = await this.sequelize.transaction()
-    
+
     try {
-      const part = await this.PartModel.findByPk(String(id), {transaction})
+      const part = await this.PartModel.findOne({
+        where: {
+          partNumber,
+        },
+        transaction
+      })
       if (!part) {
         await transaction.rollback()
-        return `Peça com o id: ${id} não existe!`
+        return `Peça com o partNumber: ${partNumber} não existe!`
       }
-    
+
       const vehicles = await this.VehicleModel.findAll({
         where: {
           id: vehiclesIds
@@ -93,7 +112,7 @@ export default class PartService{
 
       this.partVehicleModel.destroy({
         where: {
-          partId: id
+          partId: part.get("id")
         },
         transaction
       })
@@ -107,13 +126,13 @@ export default class PartService{
         return values
       })
 
-      await this.partVehicleModel.bulkCreate(relations, {transaction})
+      await this.partVehicleModel.bulkCreate(relations, { transaction })
 
       const partUpdated = await part.update({
-        partNumber,
+        partNumber: newPartNumber,
         brand,
         model
-      }, {transaction})
+      }, { transaction })
 
       await transaction.commit()
       return partUpdated
@@ -125,14 +144,20 @@ export default class PartService{
     }
   }
 
-  async delete(id: String) {
-    const part = await this.PartModel.findByPk(String(id))
-    if (!part) {
-      return `Peça com o id: ${id} não existe!`
+  async delete(ids: number[]) {
+    const parts = await this.PartModel.findAll({
+      where: {
+        id: ids
+      }
+    });
+
+    if (parts.length === 0) {
+      return `Nenhuma peça com os IDs fornecidos foi encontrada!`;
     }
 
-    await part.destroy()
+    await Promise.all(parts.map(part => part.destroy()));
 
-    return `Peça com Id: ${id} deletada com sucesso!`
+    return `Peças com IDs: ${ids.join(', ')} deletadas com sucesso!`;
   }
+
 }

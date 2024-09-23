@@ -4,6 +4,8 @@ import cors from "cors"
 //Routers
 import vehicle from './routers/vehicle'
 import part from './routers/part'
+import brands from './routers/brands'
+import models from './routers/models'
 
 export default class App {
   private app = express()
@@ -12,7 +14,7 @@ export default class App {
     const corsOptions = {
       origin: '*',
       methods: ['GET', 'POST', 'PUT', 'DELETE'],      
-      allowedHeaders: [], 
+      allowedHeaders: "*", 
       optionsSuccessStatus: 200  
     };
     this.app.use(cors(corsOptions))
@@ -23,6 +25,8 @@ export default class App {
   private router() {
     this.app.use("/vehicle", vehicle)
     this.app.use("/part", part)
+    this.app.use("/model", models)
+    this.app.use("/brand", brands)
   }
 
   private middleware() {

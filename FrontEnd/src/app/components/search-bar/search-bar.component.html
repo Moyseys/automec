@@ -1,15 +1,21 @@
-<search tuiSearch >
-  <form [formGroup]="form">
-    <fieldset tuiTextfieldSize="s">
-      <tui-textfield class="select" tuiChevron>
-        <select formControlName="select" placeholder="Selecione um campo" tuiTextfield></select>
-        <tui-data-list-wrapper *tuiTextfieldDropdown [items]="items" />
+<search tuiSearch class="containerSearch">
+  <form
+    [formGroup]="searchForm"
+    (ngSubmit)="onSubmit()"
+    class="formSearch"
+  >
+    <fieldset class="fieldset">
+      <tui-textfield iconStart="@tui.search" class="searchBar">
+        <input class="input" formControlName="searchField" placeholder="Pesquisar..." tuiTextfield />
       </tui-textfield>
-
-      <tui-textfield class="input" iconStart="@tui.search">
-        <input formControlName="search" placeholder="Digite algo para pesquisar..." tuiTextfield />
-      </tui-textfield>
-
+      <button
+        type="submit"
+        class="btnSearch"
+        tuiButton
+        appearance="primary"
+      >
+        Pesquisar
+      </button>
     </fieldset>
   </form>
 </search>

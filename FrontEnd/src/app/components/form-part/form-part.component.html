@@ -1,41 +1,47 @@
 <div class="container">
   <form class="form" [formGroup]="partForm" (ngSubmit)="onSubmit()">
     <div class="title">
-      <h1>Cadastro de <span class="prominence">Veículos</span></h1>
+      <h1>{{method === "POST" ? "Cadastro" : "Edição"}} de <span class="prominence">Peça</span></h1>
     </div>
     <div class="containerFields">
       <div class="formColl">
         <label tuiLabel><strong>PartNumber</strong></label>
-        <input class="input" type="text" formControlName="partNumber">
+        <input class="input partnumber" type="text" formControlName="partNumber">
       </div>
       <div class="formColl">
         <label tuiLabel><strong>Marca</strong></label>
-        <input class="input" type="text" formControlName="brand">
+        <input class="input brand" type="text" formControlName="brand">
       </div>
       <div class="formColl">
         <label tuiLabel><strong>Modelo</strong></label>
-        <input class="input" type="text" formControlName="model">
+        <input class="input model" type="text" formControlName="model">
       </div>
     </div>
     <div class="containerFields">
       <div class="formColl">
         <label tuiLabel><strong>Veículos</strong></label>
         <tui-multi-select
-          (click)="onSelectFocus()"
           class="multiSelect"
           formControlName="vehicles"
           [editable]="false"
           [tuiTextfieldCleaner]="true"
+          [stringify]="stringify"
           [tuiTextfieldLabelOutside]="true"
-          [disabled]="true"
+          [autoColor]="true"
           >
-          <tui-data-list-wrapper *tuiDataList tuiMultiSelectGroup [items]="items">
+          <tui-data-list-wrapper
+            *tuiDataList
+            tuiMultiSelectGroup
+            emptyContent="Nenhum veículo cadastrado"
+            [itemContent]="stringify | tuiStringifyContent"
+            [items]="vehicles | tuiFilterByInput"
+            >
           </tui-data-list-wrapper>
         </tui-multi-select>
       </div>
     </div>
     <div class="containerBtns">
-      <button size="l" tuiButton type="button" class="btnBack" (click)="onClickBtnBack()">
+      <button size="l" tuiButton type="button" class="btnBack" (click)="onClickBack()">
         Voltar
       </button>
       <button appearance="flat" size="l" tuiButton type="submit" class="btnSave">

@@ -1,104 +1,81 @@
-<table tuiTable [size]="size" [style.width.rem]="58">
-  <thead>
-    <tr>
-      <th tuiTh>
-        <div [tuiCell]="size">
-          <input tuiCheckbox type="checkbox" [ngModel]="checked" [size]="size === 'l' ? 'm' : 's'"
-            (ngModelChange)="onCheck($event)" />
-        </div>
-      </th>
-      <th tuiTh>Id</th>
-      <th tuiTh>Part Number</th>
-      <th tuiTh>Marca</th>
-      <th tuiTh>Modelo</th>
-      <th tuiTh [style.width.rem]="10">
-        Veículos
-      </th>
-      <th tuiTh>Data de criação</th>
-      <th tuiTh>Data de última atualização</th>
-    </tr>
-  </thead>
-  <tbody tuiTbody>
-    <tr *ngFor="let item of data()">
-      <td tuiTd>
-        <div [tuiCell]="size">
-          <input tuiCheckbox type="checkbox" [size]="size === 'l' ? 'm' : 's'" [(ngModel)]="item.selected" />
-        </div>
-      </td>
-      <td tuiTd>
-        <div [tuiCell]="size">
-          <span tuiTitle>
-            {{ item.id }}
-          </span>
-        </div>
-      </td>
-      <td tuiTd>
-        <div [tuiCell]="size">
-          <span tuiTitle>
-            {{ item.partNumber }}
-          </span>
-        </div>
-      </td>
-      <td tuiTd>
-        <div [tuiCell]="size">
-          <span tuiTitle>
-            {{ item.brand }}
-          </span>
-        </div>
-      </td>
-      <td tuiTd>
-        <div [tuiCell]="size">
-          <span tuiTitle>
-            {{ item.model }}
-          </span>
-        </div>
-      </td>
-      <td tuiTd>
-        <tui-items-with-more [style.gap.rem]="0.25">
-          <ng-container *ngFor="let vehicle of item.Vehicles">
-            <tui-badge *tuiItem>{{vehicle.model}}</tui-badge>
-          </ng-container>
-          <ng-template let-number tuiMore>
-            <button
-              appearance="icon"
-              tuiDropdownAlign="right"
-              tuiDropdownOpen
-              tuiLink
-              type="button"
-              [pseudo]="true"
-              [tuiDropdown]="dropdown">
-              + {{ item.Vehicles.length - number - 1 }}
-            </button>
-            <ng-template #dropdown>
-              <div tuiStatus [style.padding.rem]="1">
-                <ng-container *ngFor="let vehicle of item.Vehicles; let index = index">
-                  <tui-badge *ngIf="index > number">{{ vehicle.model }}</tui-badge>
-                </ng-container>
-              </div>
+<div class="tableContainer">
+  <table class="table" tuiTable [size]="size">
+    <thead class="thead">
+      <tr>
+        <th tuiTh>
+          <div [tuiCell]="size">
+            <input tuiCheckbox type="checkbox" [ngModel]="checked" [size]="size === 'l' ? 'm' : 's'"
+              (ngModelChange)="onCheck($event)" />
+          </div>
+        </th>
+        <th tuiTh>Id</th>
+        <th tuiTh>Part Number</th>
+        <th tuiTh>Marca</th>
+        <th tuiTh>Modelo</th>
+        <th tuiTh [style.width.rem]="10">Veículos</th>
+        <th tuiTh>Data de criação</th>
+        <th tuiTh>Data de última atualização</th>
+      </tr>
+    </thead>
+    <tbody tuiTbody class="tbody">
+      <tr *ngFor="let item of data()">
+        <td tuiTd>
+          <div [tuiCell]="size">
+            <input tuiCheckbox type="checkbox" [size]="size === 'l' ? 'm' : 's'" [(ngModel)]="item.selected" />
+          </div>
+        </td>
+        <td tuiTd (click)="onClickRow(item)">
+          <div [tuiCell]="size">
+            <span tuiTitle>{{ item.id }}</span>
+          </div>
+        </td>
+        <td tuiTd (click)="onClickRow(item)">
+          <div [tuiCell]="size">
+            <span tuiTitle>{{ item.partNumber }}</span>
+          </div>
+        </td>
+        <td tuiTd (click)="onClickRow(item)">
+          <div [tuiCell]="size">
+            <span tuiTitle>{{ item.brand }}</span>
+          </div>
+        </td>
+        <td tuiTd (click)="onClickRow(item)">
+          <div [tuiCell]="size">
+            <span tuiTitle>{{ item.model }}</span>
+          </div>
+        </td>
+        <td tuiTd (click)="onClickRow(item)">
+          <tui-items-with-more [style.gap.rem]="0.25">
+            <ng-container *ngFor="let vehicle of item.Vehicles">
+              <tui-badge *tuiItem>{{ vehicle.model }}</tui-badge>
+            </ng-container>
+            <ng-template let-number tuiMore>
+              <button appearance="icon" tuiDropdownAlign="right" tuiDropdownOpen tuiLink type="button" [pseudo]="true"
+                [tuiDropdown]="dropdown">
+                + {{ item.Vehicles.length - number - 1 }}
+              </button>
+              <ng-template #dropdown>
+                <div tuiStatus [style.padding.rem]="1">
+                  <ng-container *ngFor="let vehicle of item.Vehicles; let index = index">
+                    <tui-badge *ngIf="index > number">{{ vehicle.model }}</tui-badge>
+                  </ng-container>
+                </div>
+              </ng-template>
             </ng-template>
-          </ng-template>
-        </tui-items-with-more>
-      </td>
-      <td tuiTd>
-        <div [tuiCell]="size">
-          <span tuiTitle>
-            {{ item.createdAt }}
-          </span>
-        </div>
-      </td>
-      <td tuiTd>
-        <div [tuiCell]="size">
-          <span tuiTitle>
-            {{ item.updatedAt }}
-          </span>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<tui-table-pagination
-[items]="sizeOptions"
-[total]="total$.getValue()"
-(paginationChange)="onPagination($event)"
-/>
-
+          </tui-items-with-more>
+        </td>
+        <td tuiTd (click)="onClickRow(item)">
+          <div [tuiCell]="size">
+            <span tuiTitle>{{ item.createdAt }}</span>
+          </div>
+        </td>
+        <td tuiTd (click)="onClickRow(item)">
+          <div [tuiCell]="size">
+            <span tuiTitle>{{ item.updatedAt }}</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <tui-table-pagination [items]="sizeOptions" [total]="total$.getValue()" (paginationChange)="onPagination($event)" />
+</div>

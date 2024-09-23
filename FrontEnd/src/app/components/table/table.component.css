@@ -1,0 +1,92 @@
+.table {
+  width: 60vw;
+  margin-top: 4em;
+  table-layout: auto;
+
+  border-radius: 5px 5px 0 0;
+}
+.tableContainer {
+  overflow-x: auto;
+  max-width: 100%;
+  width: 65vw;
+
+  border-radius: 5px;
+}
+
+.tableContainer::-webkit-scrollbar {
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  height: 0.5em;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  background: var(--tertiary-color);
+  border-radius: 5px;
+}
+
+.thead {
+}
+
+.thead th {
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+  border-radius: 5px 5px 0 0;
+}
+
+.tbody tr {
+}
+
+.tbody td {
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  background-color: var(--secondary-color);
+}
+input[type="checkbox"]:checked {
+  cursor: pointer;
+  background-color: var(--tertiary-color);
+}
+input[type="checkbox"]:hover {
+  cursor: pointer;
+  background-color: #cbcbcb;
+}
+
+@media (max-width: 1000px) {
+  .table {
+    width: 60vw;
+    margin-top: 4em;
+
+    border-radius: 5px 5px 0 0;
+  }
+
+  .thead {
+  }
+
+  .thead th {
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    border-radius: 5px 5px 0 0;
+  }
+
+  .tbody tr {
+  }
+
+  .tbody td {
+  }
+
+  input[type="checkbox"] {
+    cursor: pointer;
+    background-color: var(--secondary-color);
+  }
+
+  input[type="checkbox"]:checked {
+    cursor: pointer;
+    background-color: var(--tertiary-color);
+  }
+
+  input[type="checkbox"]:hover {
+    cursor: pointer;
+    background-color: #cbcbcb;
+  }
+}
