@@ -47,24 +47,25 @@
   height: 20%;
 }
 
-.btnPlus{
+.btn {
   color: var(--secondary-color);
   height: 2.5em;
   padding: 1em 0.5em 1em 0.5em;
-
-  flex: 2;
-  background-color: var(--tertiary-color);
   border-radius: 5px;
 }
+.Plus{
+  flex: 3;
+  background-color: var(--tertiary-color);
+}
 
-.btnTrash{
-  color: var(--secondary-color);
-  height: 2.5em;
-  padding: 1em 0.5em 1em 0.5em;
-
+.Trash{
   flex: 1;
   background-color: #FF4B4B;
-  border-radius: 5px;
+}
+
+.ArrowDownToLine{
+  flex: 1;
+  background-color: #0c9c15ae;
 }
 
 @media (max-width: 1000px) {
@@ -98,7 +99,7 @@
       height: 15%;
     }
 
-    .btnPlus {
+    .Plus {
       color: var(--secondary-color);
       height: 2em;
       padding: 1.2em 0.5em 1.2em 0.5em;
@@ -108,7 +109,7 @@
       border-radius: 5px;
     }
 
-    .btnTrash {
+    .Trash {
       color: var(--secondary-color);
       height: 2em;
       padding: 1.2em 0.5em 1.2em 0.5em;
@@ -116,5 +117,66 @@
       flex: 1;
       background-color: #FF4B4B;
       border-radius: 5px;
+    }
+}
+@media (max-width: 500px) {
+
+  .containerNav {
+      width: 80vw;
+      height: 10em;
+      padding: 1em 0 1em 0;
+
+      row-gap: 0em;
+    }
+
+        .navGoup {
+          width: 100%;
+
+          display: flex;
+          flex-direction: row;
+          align-items: start;
+          justify-content: start;
+
+          column-gap: 1em;
+        }
+
+    .searchBar {
+      width: 80%;
+    }
+
+    .title {
+      text-align: start;
+      font-size: 12px;
+      margin-left: 3em;
+    }
+
+    .btnGroup {
+      display: flex;
+      align-items: center;
+      column-gap: 0.2em;
+
+      width: 20%;
+      height: 15%;
+    }
+
+    .Plus {
+      height: 2em;
+      padding: 1em;
+
+      flex: 1;
+    }
+
+    .Trash {
+      height: 2em;
+      padding: 1em;
+
+      flex: 1;
+    }
+
+    .ArrowDownToLine{
+      height: 2em;
+      padding: 1em;
+
+      flex: 1;
     }
 }

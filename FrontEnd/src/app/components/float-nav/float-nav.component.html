@@ -2,10 +2,13 @@
   <div class="navGoup">
     <h1 class="title">Listagem de <span class="prominence">{{title}}</span></h1>
     <div class="btnGroup">
-      <button tuiButton class="btnTrash" (click)="onClickBtnTrash()">
+      <button tuiButton class="btn ArrowDownToLine" (click)="onClickBtnArrowDownToLine()">
+        <i-lucide [img]="ArrowDownToLine" [size]="iconSize" [strokeWidth]="iconStroke" class="iconArrowDownToLine" />
+      </button>
+      <button tuiButton class="btn Trash" (click)="onClickBtnTrash()">
         <i-lucide [img]="Trash" [size]="iconSize" [strokeWidth]="iconStroke" class="iconTrash" />
       </button>
-      <button tuiButton class="btnPlus" (click)="onClickBtnPlus()">
+      <button tuiButton class="btn Plus" (click)="onClickBtnPlus()">
         <i-lucide [img]="Plus" [size]="iconSize" [strokeWidth]="iconStroke" class="iconPlus" />
       </button>
     </div>

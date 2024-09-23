@@ -10,19 +10,17 @@ export default class PartController{
   
   public async index(req: Request, res: Response) {
     try {
-      const limit = Number(req.query.limit) || 10
-      const page = Number(req.query.page) || 1
-      const brand = String(req.query.brand) || ""
-      const model = String(req.query.model) || ""
+      const limit = Number(req.query?.limit) || 10000
+      const page = Number(req.query?.page) || 1
+      const brand = String(req.query?.brand) || ""
+      const model = String(req.query?.model) || ""
 
-      console.log(brand, model);
-      
       if (!limit || !page ) {
         return res.status(400).json({ error: "Limit, Page inválidos" })
       }
 
-      const offset = (page - 1) * limit
-
+      const offset = limit === Infinity ? 0 : (page - 1) * limit
+            
       const { count, parts } = await this.partService.getParts(offset, limit, brand, model)
 
       return res.status(200).json({

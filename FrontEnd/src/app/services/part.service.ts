@@ -18,7 +18,7 @@ export class PartService {
   private url = `http://localhost:3000`
   constructor(private client: HttpClient) { }
 
-  getPart(page: number, limit: number, brand: String, model: String | null): Observable<ResponseGetPart> {
+  getPart(page: number | String = '', limit: number | String = '', brand: String = '', model: String | null = ''): Observable<ResponseGetPart> {
     const res = this.client.get<ResponseGetPart>(`${this.url}/part?page=${page}&limit=${limit}&brand=${brand}&model=${model}`)
 
     return res

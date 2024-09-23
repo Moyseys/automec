@@ -5,7 +5,7 @@
     class="formSearch"
   >
     <fieldset class="fieldset">
-      <tui-textfield iconStart="@tui.search" class="searchBar">
+      <tui-textfield class="searchBar">
         <input class="input" formControlName="searchField" placeholder="Pesquisar..." tuiTextfield />
       </tui-textfield>
       <button
@@ -14,7 +14,11 @@
         tuiButton
         appearance="primary"
       >
-        Pesquisar
+        <i-lucide
+          [img]="Search"
+          [size]="iconSize"
+          [strokeWidth]="iconStroke"
+          class="iconSearch"></i-lucide>
       </button>
     </fieldset>
   </form>

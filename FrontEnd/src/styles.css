@@ -10,15 +10,18 @@
 }
 
 .containerMain{
+  width: 100%;
   display: flex;
   align-items: start;
   justify-content: start;
   justify-items: start;
 
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .main{
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -32,8 +35,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-
 }
 
 .prominence {

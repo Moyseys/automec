@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { LucideAngularModule, Home, Wrench, CarFront} from 'lucide-angular';
+import { LucideAngularModule, Home, Wrench, CarFront } from 'lucide-angular';
 
 @Component({
   selector: 'app-sidebar',
@@ -22,7 +22,7 @@ export class SidebarComponent {
   readonly CarFront = CarFront;
 
   readonly iconStroke = 2;
-  readonly iconSize = 30;
+  iconSize = 30;
 
   public currentRouter: String;
 
@@ -31,15 +31,21 @@ export class SidebarComponent {
   }
 
   ngOnInit() {
-    console.log(this.currentRouter)
+    this.onResize()
   }
 
-  isActiveRouter(router: String): "active" | ""{
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: Event) {
+    const width = window.innerWidth;
+    this.iconSize = width < 500 ? 20 : 30;
+  }
+
+  isActiveRouter(router: String): "active" | "" {
     if (this.currentRouter !== router) return "active"
     return ""
   }
 
-  isCurrentRouter(router: String): boolean{
+  isCurrentRouter(router: String): boolean {
     return this.currentRouter === router
   }
 }

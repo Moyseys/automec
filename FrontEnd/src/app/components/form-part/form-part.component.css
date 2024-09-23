@@ -80,7 +80,7 @@
 
 .btnBack {
   background-color: #828282;
-  padding: 0.7em 2em 0.7em 2em;
+  padding: 0.5em 2em 0.5em 2em;
   color: var(--secondary-color);
   font-size: 18px;
 
@@ -90,7 +90,7 @@
 
 .btnSave {
   background-color: var(--tertiary-color);
-  padding: 0.7em 3em 0.7em 3em;
+  padding: 0.5em 2em 0.5em 2em;
   color: var(--secondary-color);
   font-size: 18px;
 
@@ -169,7 +169,7 @@
 
   .title {
     text-align: start;
-    font-size: 12px;
+    font-size: 10px;
 
     margin-bottom: 1em;
   }

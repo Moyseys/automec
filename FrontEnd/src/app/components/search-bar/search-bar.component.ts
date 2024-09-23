@@ -1,5 +1,5 @@
 import {NgForOf} from '@angular/common';
-import {ChangeDetectionStrategy, Component, EventEmitter, inject, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, inject, Output} from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {tuiCountFilledControls} from '@taiga-ui/cdk';
@@ -12,7 +12,7 @@ import {
     TuiSwitch,
 } from '@taiga-ui/kit';
 import {TuiSearch} from '@taiga-ui/layout';
-
+import { LucideAngularModule, Search} from 'lucide-angular';
 
 type Column = 'Id' | 'Marca' | 'Modelo'
 
@@ -26,7 +26,8 @@ type Column = 'Id' | 'Marca' | 'Modelo'
         TuiChevron,
         TuiDataListWrapper,
         TuiSearch,
-        TuiTextfield,
+      TuiTextfield,
+        LucideAngularModule
     ],
     providers: [
     {
@@ -41,6 +42,11 @@ type Column = 'Id' | 'Marca' | 'Modelo'
 export class SearchBarComponent {
     @Output() searchAction= new EventEmitter()
 
+      readonly Search = Search;
+
+      readonly iconStroke = 1.5;
+      iconSize = 30;
+
     protected readonly items = inject<readonly Column[]>('columns' as any)
     protected hashTable: { [key in Column]: { label: Column, column: string} } = {
       Id: { label: 'Id', column: 'id' },
@@ -53,6 +59,16 @@ export class SearchBarComponent {
     protected searchForm = new FormGroup({
       searchField: new FormControl<String>('')
     })
+
+  ngOnInit() {
+    this.onResize()
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: Event) {
+    const width = window.innerWidth;
+    this.iconSize = width < 700 ? 20 : 30;
+  }
 
   protected onSubmit() {
     const {searchField} = this.searchForm.value

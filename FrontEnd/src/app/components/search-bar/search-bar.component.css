@@ -7,11 +7,16 @@
   width: 100%
 }
 
+.iconSearch{
+  color: var(--tertiary-color);
+}
+
 .fieldset{
   width: 100%
 }
 
 .input{
+  border-radius: 5px;
   padding: 0.5em 1em 0.5em 1em;
 }
 
@@ -23,7 +28,7 @@
 .btnSearch{
   border: 1px solid #33333334;
   height: 100%;
-  padding: 0.5em 1em 0.5em 1em;
+  padding: 0.2em 1em 0.2em 1em;
   border-radius: 7px;
 }
 
@@ -56,9 +61,53 @@
       color: var(--tertiary-color);
     }
 
+        .btnSearch {
+          border: 1px solid #33333334;
+          height: 100%;
+          padding: 0em 1em 0em 1em;
+          border-radius: 7px;
+        }
+}
+@media (max-width: 500px) {
+  .containerSearch {
+      display: flex;
+      align-items: start;
+    }
+
+    .formSearch {
+
+      width: 100%
+    }
+
+    .fieldset {
+      width: 100%;
+      height: 2em;
+    }
+
+    .input {
+      margin: 0;
+      padding: 0;
+      height: 2.5em;
+      width: 100%;
+    }
+
+    .searchBar {
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      justify-content: center;
+      align-content: center;
+
+      width: 100%;
+      height: 100%;
+      color: var(--tertiary-color);
+      min-inline-size: 0;
+    }
+
     .btnSearch {
       border: 1px solid #33333334;
       height: 100%;
+      font-size: 12px;
       padding: 0.2em 0.7em 0.2em 0.7em;
       border-radius: 7px;
     }

@@ -21,7 +21,7 @@ import SearchObj from '../../../interfaces/SearchObj';
   styleUrl: './part.component.css'
 })
 export class PartComponent {
-  protected showForm = signal<boolean>(true)
+  protected showForm = signal<boolean>(false)
   @ViewChild('tableComponent') tableComponent!: TableComponent;
 
   protected partData = signal<DataTable | null>(null);
