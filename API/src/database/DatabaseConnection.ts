@@ -3,9 +3,10 @@ import { Sequelize } from "sequelize"
 class DatabaseConnection {
   private sequelize: Sequelize
 
-  constructor(database: string, username: string, password: string, host: string = 'localhost') {
+  constructor(database: string, port: number, username: string, password: string, host: string = 'localhost') {
     this.sequelize = new Sequelize(database, username, password, {
       host: host,
+      port: port,
       dialect: 'mysql'
     })
   }
