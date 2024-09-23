@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import Part from '../../interfaces/Part';
-import Brand from '../../interfaces/Brand';
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+import { Observable } from 'rxjs'
+import Part from '../../interfaces/Part'
+import Brand from '../../interfaces/Brand'
+import { environment } from '../../environment/environment'
 
 interface ResponseGetPart {
   total: number,
@@ -15,7 +16,7 @@ interface ResponseGetPart {
   providedIn: 'root'
 })
 export class PartService {
-  private url = `http://localhost:3000`
+  private url = environment.apiUrl
   constructor(private client: HttpClient) { }
 
   getPart(page: number | String = '', limit: number | String = '', brand: String = '', model: String | null = ''): Observable<ResponseGetPart> {
@@ -27,7 +28,7 @@ export class PartService {
   postPart(partNumber: String, brand: String, model: String, vehicles: number[]): Observable<Part> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
-    });
+    })
 
     const res = this.client.post<Part>(`${this.url}/part`, {
       partNumber,
@@ -43,7 +44,7 @@ export class PartService {
   putPart(partNumber: String, newPartNumber: String, brand: String, model: String, vehicles: number[]): Observable<Part> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
-    });
+    })
 
     const res = this.client.put<Part>(`${this.url}/part/${partNumber}`, {
       newPartNumber,
@@ -57,23 +58,11 @@ export class PartService {
     return res
   }
 
-  getModels(brandName: string): Observable<String[]> {
-    const res = this.client.get<String[]>(`${this.url}/model?brand=${brandName}`)
-
-    return res
-  }
-
-  getBrands(): Observable<Brand[]> {
-    const res = this.client.get<{id: number, name: string, models: String[]}[]>(`${this.url}/brand`)
-
-    return res
-  }
-
   deleteParts(partsIds: number[]): Observable<String> {
     const res = this.client.delete<String>(`${this.url}/part`, {
       body: { partsIds: partsIds }
-    });
+    })
 
-    return res;
+    return res
   }
 }

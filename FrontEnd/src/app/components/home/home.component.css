@@ -5,12 +5,10 @@
 .containerHome {
   width: 100vw;
   margin-top: 17vh;
-
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-
   row-gap: 7em;
 }
 
@@ -19,7 +17,6 @@
   align-items: center;
   justify-content: center;
   max-width: 70vw;
-
   column-gap: 8em;
 }
 
@@ -28,7 +25,6 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-
   row-gap: 1em;
 }
 
@@ -37,9 +33,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-
   padding: 4em;
-
   border: 3px solid var(--primary-color);
   background-color: var(--secondary-color) DFA;
   border-radius: 20px;
@@ -59,7 +53,6 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-
   row-gap: 2em;
 }
 
@@ -74,6 +67,7 @@
   color: var(--primary-color) bf;
 }
 
+/* Responsividade */
 @media (max-width: 920px) {
   .description {
     font-size: 20px;
@@ -88,24 +82,11 @@
   }
 
   .btn {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-
     padding: 2em;
-
-    border: 3px solid var(--primary-color);
-    background-color: var(--secondary-color) DFA;
-    border-radius: 20px;
   }
 }
 
 @media (max-width: 670px) {
-  .description {
-    font-size: 20px;
-  }
-
   .titles {
     row-gap: 1em;
   }
@@ -120,21 +101,10 @@
 
   .btn {
     padding: 2em;
-
     border: 2px solid var(--primary-color);
   }
 
-  .iconCar,
-  .iconWrench {
-    color: var(--tertiary-color);
-  }
-
   .containerBtns {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 70vw;
-
     column-gap: 3em;
   }
 
@@ -144,14 +114,9 @@
 }
 
 @media (max-width: 550px) {
-  .description {
-    font-size: 20px;
-  }
-
   .titles {
     width: 80%;
     text-align: center;
-    row-gap: 1em;
   }
 
   .title {
@@ -162,32 +127,7 @@
     font-size: 14px;
   }
 
-  .btn {
-    padding: 2em;
-
-    border: 2px solid var(--primary-color);
-  }
-
-  .iconCar,
-  .iconWrench {
-    color: var(--tertiary-color);
-  }
-
-  .containerBtns {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 70vw;
-
-    column-gap: 3em;
-  }
-
   .cardBtn {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-
     row-gap: 0;
   }
 

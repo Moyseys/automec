@@ -1,7 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { LucideAngularModule, Wrench, CarFront} from 'lucide-angular';
-import { TuiButton } from '@taiga-ui/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -10,7 +9,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [
     NavbarComponent,
     LucideAngularModule,
-    TuiButton,
     RouterLink,
     RouterLinkActive
   ],

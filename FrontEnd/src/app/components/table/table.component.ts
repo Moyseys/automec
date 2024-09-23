@@ -1,7 +1,7 @@
-import { NgForOf, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, inject, Input, Output, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { TuiTable, TuiTablePaginationEvent } from '@taiga-ui/addon-table';
+import { NgForOf } from '@angular/common'
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, inject, Output, signal } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { TuiTable, TuiTablePaginationEvent } from '@taiga-ui/addon-table'
 import {
   TuiAlertService,
   TuiAutoColorPipe,
@@ -11,30 +11,23 @@ import {
   TuiInitialsPipe,
   TuiLink,
   TuiTitle,
-} from '@taiga-ui/core';
+} from '@taiga-ui/core'
 import {
-  TuiAvatar,
   TuiBadge,
   TuiCheckbox,
-  TuiChip,
   TuiItemsWithMore,
-  TuiProgressBar,
-  TuiRadioList,
-  TuiStatus,
-} from '@taiga-ui/kit';
-import { TuiCell } from '@taiga-ui/layout';
+} from '@taiga-ui/kit'
+import { TuiCell } from '@taiga-ui/layout'
 import {
   TuiTablePagination,
-} from '@taiga-ui/addon-table';
-import { PartService } from '../../services/part.service';
-import { BehaviorSubject, combineLatest } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
-import DataTable from '../../../interfaces/DataTable';
-import SearchObj from '../../../interfaces/SearchObj';
-import Part from '../../../interfaces/Part';
-import Vehicle from '../../../interfaces/Vehicle';
-
-
+} from '@taiga-ui/addon-table'
+import { PartService } from '../../services/part.service'
+import { BehaviorSubject, combineLatest } from 'rxjs'
+import { HttpErrorResponse } from '@angular/common/http'
+import DataTable from '../../../interfaces/DataTable'
+import SearchObj from '../../../interfaces/SearchObj'
+import Part from '../../../interfaces/Part'
+import Vehicle from '../../../interfaces/Vehicle'
 
 @Component({
   selector: 'app-table',
@@ -42,22 +35,16 @@ import Vehicle from '../../../interfaces/Vehicle';
   imports: [
     FormsModule,
     NgForOf,
-    NgIf,
     TuiAutoColorPipe,
-    TuiAvatar,
     TuiBadge,
     TuiButton,
     TuiCell,
     TuiCheckbox,
-    TuiChip,
     TuiDropdown,
     TuiIcon,
     TuiInitialsPipe,
     TuiItemsWithMore,
     TuiLink,
-    TuiProgressBar,
-    TuiRadioList,
-    TuiStatus,
     TuiTable,
     TuiTitle,
     TuiTablePagination,
@@ -70,96 +57,29 @@ import Vehicle from '../../../interfaces/Vehicle';
 export class TableComponent {
   @Output() clickRow = new EventEmitter<DataTable>()
 
-  protected size: 's' | 'm' | 'l' = "m";
+  protected size: 's' | 'm' | 'l' = "m"
+  protected dataTable = signal<DataTable[]>([])
 
-  protected data = signal<DataTable[]>([])
-  protected readonly total$ = new BehaviorSubject(0);
-  protected readonly limit$ = new BehaviorSubject(10);
+  protected readonly total$ = new BehaviorSubject(0)
+  protected readonly limit$ = new BehaviorSubject(10)
   protected readonly page$ = new BehaviorSubject(1)
-  private readonly alertService = inject(TuiAlertService);
+  private readonly alertService = inject(TuiAlertService)
 
-  protected sizeOptions = [5, 10, 15, 30, 50, this.total$.getValue()];
+  protected sizeOptions = [5, 10, 15, 30, 50, this.total$.getValue()]
 
   constructor(private service: PartService) { }
 
   ngOnInit(): void {
     this.onResize()
+
     combineLatest([this.page$, this.limit$]).subscribe(([page, size]) => {
-      this.updateDataTable(page, size);
-    });
-
-    this.total$.subscribe(total => {
-      this.sizeOptions = [5, 10, 15, 30, 50, total];
-    });
-  }
-
-  protected showNotification(title: string, message: string, appearance: 'success' | 'destructive' | 'error' | 'warning'): void {
-    this.alertService.open(message, { label: title, appearance }).subscribe();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event?: Event) {
-    const width = window.innerWidth;
-
-    this.size = width < 920 ? "s" : 'm';
-  }
-
-  onClickRow(dataTable: DataTable) {
-    this.clickRow.emit(dataTable)
-  }
-
-  onSearch(searchObj: SearchObj) {
-    console.log(searchObj)
-    this.service.getPart(1, 1000, "", "").subscribe({
-      next: (data) => {
-        const { total, parts } = data
-
-        const newParts = this.filterParts(parts, searchObj.textSearch)
-
-        const datatTable = newParts.map(part => {
-          const newPart = {
-            ...part,
-            selected: false
-          } as DataTable
-          return newPart
-        })
-
-        this.total$.next(total)
-        this.data.set(datatTable)
-      },
-      error: (error) => {
-        console.log(error)
-      }
+      this.updateDataTable(page, size)
     })
   }
 
-  private filterParts(parts: Part[], searchTerm: string): Part[] {
-    const lowerSearchTerm = searchTerm.toLowerCase();
-
-    return parts.filter((part: Part) => {
-      const createdAtISO = new Date(String(part.createdAt)).toISOString();
-      const updatedAtISO = new Date(String(part.updatedAt)).toISOString();
-
-      return (
-        part.brand.toLowerCase().includes(lowerSearchTerm) ||
-        part.model.toLowerCase().includes(lowerSearchTerm) ||
-        part.partNumber.toLowerCase().includes(lowerSearchTerm) ||
-        String(part.id).includes(lowerSearchTerm) ||
-        createdAtISO.includes(lowerSearchTerm) ||
-        updatedAtISO.includes(lowerSearchTerm) ||
-        this.vehicleMatchesSearch(part.Vehicles, lowerSearchTerm)
-      );
-    });
-  }
-
-  private vehicleMatchesSearch(vehicles: Vehicle[] | undefined, searchTerm: string): boolean {
-    return vehicles?.some((vehicle: Vehicle) => vehicle.model.toLowerCase().includes(searchTerm)) || false;
-  }
-
-  deleteSelectedValues() {
-    const rowsSelected = this.data()
-      .filter(dataTable => dataTable.selected)
-    if (rowsSelected.length <= 0) return
+  public deleteSelectedValues() {
+    const rowsSelected = this.dataTable().filter(dataTable => dataTable.selected)
+    if (rowsSelected.length <= 0) return this.showNotification('Nunhuma linha selecionada', 'Selecione ao menos uma linha para excluir', 'warning')
 
     const partsIds = rowsSelected
       .map(dataTable => dataTable.id) as number[]
@@ -170,74 +90,130 @@ export class TableComponent {
         this.updateDataTable(this.page$.getValue(), this.limit$.getValue())
       },
       error: (error: HttpErrorResponse) => {
-        const errorMessage = error.error || 'Ocorreu um erro inesperado. Tente novamente mais tarde.';
-        this.showNotification('Erro ao salvar peça', errorMessage, 'error');
+        const errorMessage = error.error || 'Ocorreu um erro inesperado. Tente novamente mais tarde.'
+        this.showNotification('Erro ao excluir peça', errorMessage, 'error')
       }
     })
+  }
+
+  public updateDataTable(page: number | null, limit: number | null, brand?: string, model?: string): void {
+    if (!page || !limit) {
+      page = this.page$.getValue()
+      limit = this.limit$.getValue()
+    }
+
+    this.service.getPart(page, limit, brand || "", model || "").subscribe({
+      next: (data) => {
+        const { total, parts } = data
+        const newDataTable = this.partToDataTable(parts)
+
+        this.total$.next(total)
+        this.dataTable.set(newDataTable)
+      },
+      error: (error: HttpErrorResponse) => {
+        const errorMessage = error.error || 'Ocorreu um erro inesperado. Tente novamente mais tarde.'
+        this.showNotification('Erro ao atualizar sua peça', errorMessage, 'error')
+      }
+    })
+  }
+
+  onClickRow(dataTable: DataTable) {
+    this.clickRow.emit(dataTable)
+  }
+
+  onSearch(searchObj: SearchObj) {
+    this.service.getPart(1, 1000, "", "").subscribe({
+      next: (data) => {
+        const { total, parts } = data
+
+        const newParts = this.filterParts(parts, searchObj.textSearch)
+        const datatTable = this.partToDataTable(newParts)
+
+        this.total$.next(total)
+        this.dataTable.set(datatTable)
+      },
+      error: (error) => {
+        const errorMessage = error.error || 'Ocorreu um erro inesperado. Tente novamente mais tarde.'
+        this.showNotification('Erro ao realizar a pesquisa', errorMessage, 'error')
+      }
+    })
+  }
+
+  private filterParts(parts: Part[], searchTerm: string): Part[] {
+    const lowerSearchTerm = searchTerm.toLowerCase()
+
+    return parts.filter((part: Part) => {
+      const createdAtISO = new Date(String(part.createdAt)).toISOString()
+      const updatedAtISO = new Date(String(part.updatedAt)).toISOString()
+
+      return (
+        part.brand.toLowerCase().includes(lowerSearchTerm) ||
+        part.model.toLowerCase().includes(lowerSearchTerm) ||
+        part.partNumber.toLowerCase().includes(lowerSearchTerm) ||
+        String(part.id).includes(lowerSearchTerm) ||
+        createdAtISO.includes(lowerSearchTerm) ||
+        updatedAtISO.includes(lowerSearchTerm) ||
+        this.vehicleMatchesSearch(part.Vehicles, lowerSearchTerm)
+      )
+    })
+  }
+
+  private vehicleMatchesSearch(vehicles: Vehicle[] | undefined, searchTerm: string): boolean {
+    return vehicles?.some((vehicle: Vehicle) => vehicle.model.toLowerCase().includes(searchTerm)) || false
+  }
+
+  protected get checked(): boolean | null {
+    const every = this.dataTable().every(({ selected }) => selected)
+    const some = this.dataTable().some(({ selected }) => selected)
+
+    return every || (some && null)
+  }
+
+  protected onCheck(checked: boolean): void {
+    this.dataTable().forEach((item) => {
+      item.selected = checked
+    })
+  }
+
+  protected onPagination({ page, size }: TuiTablePaginationEvent): void {
+    this.page$.next(page + 1)
+    this.limit$.next(size)
+  }
+
+  protected showNotification(title: string, message: string, appearance: 'success' | 'destructive' | 'error' | 'warning'): void {
+    this.alertService.open(message, { label: title, appearance }).subscribe()
+  }
+
+  private partToDataTable(parts: Part[]) {
+    const datatTable = parts.map(part => {
+      const { createdAt, updatedAt } = part
+      const newPart = {
+        ...part,
+        createdAt: this.formatDate(String(createdAt) || ""),
+        updatedAt: this.formatDate(String(updatedAt) || ""),
+        selected: false
+      } as DataTable
+
+      return newPart
+    })
+
+    return datatTable
   }
 
   protected formatDate(date: string): string {
     const newDate = new Date(date)
 
-  const day = String(newDate.getDate()).padStart(2, '0'); // Adiciona um zero à esquerda se necessário
-  const month = String(newDate.getMonth() + 1).padStart(2, '0'); // Meses começam em 0, então adicionamos 1
-  const year = newDate.getFullYear();
+    const day = String(newDate.getDate()).padStart(2, '0')
+    const month = String(newDate.getMonth() + 1).padStart(2, '0')
+    const year = newDate.getFullYear()
 
-  return `${day}/${month}/${year}`;
-}
-
-  public updateDataTable(page: number | null, limit: number | null, brand?: string, model?: string): void {
-    try {
-      if (!page || !limit) {
-        page = this.page$.getValue()
-        limit = this.limit$.getValue()
-      }
-      this.service.getPart(page, limit, brand || "", model || "").subscribe({
-        next: (data) => {
-          const { total, parts } = data
-
-          const datatTable = parts.map(part => {
-            const { createdAt, updatedAt } = part
-            const newPart = {
-              ...part,
-              createdAt: this.formatDate(String(createdAt) || ""),
-              updatedAt: this.formatDate(String(updatedAt) || ""),
-              selected: false
-            } as DataTable
-
-            return newPart
-          })
-
-          this.total$.next(total)
-          this.data.set(datatTable)
-        },
-        error: (error) => {
-          console.log(error)
-        },
-        complete: () => {
-          console.log('Requisição completa');
-        }
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    return `${day}/${month}/${year}`
   }
 
-  protected get checked(): boolean | null {
-    const every = this.data().every(({ selected }) => selected);
-    const some = this.data().some(({ selected }) => selected);
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: Event) {
+    const width = window.innerWidth
 
-    return every || (some && null);
-  }
-
-  protected onCheck(checked: boolean): void {
-    this.data().forEach((item) => {
-      item.selected = checked;
-    });
-  }
-
-  protected onPagination({ page, size }: TuiTablePaginationEvent): void {
-    this.page$.next(page + 1);
-    this.limit$.next(size);
+    this.size = width < 920 ? "s" : 'm'
   }
 }

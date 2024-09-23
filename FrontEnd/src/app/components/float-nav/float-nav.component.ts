@@ -1,9 +1,9 @@
-import { Component, EventEmitter, HostListener, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, inject, Input, Output } from '@angular/core'
 import { LucideAngularModule, Trash, Plus, ArrowDownToLine } from "lucide-angular"
-import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { PartService } from '../../services/part.service';
-import * as XLSX from 'xlsx';
-import { TuiAlertService } from '@taiga-ui/core';
+import { SearchBarComponent } from '../search-bar/search-bar.component'
+import { PartService } from '../../services/part.service'
+import * as XLSX from 'xlsx'
+import { TuiAlertService } from '@taiga-ui/core'
 
 @Component({
   selector: 'app-float-nav',
@@ -16,7 +16,7 @@ import { TuiAlertService } from '@taiga-ui/core';
   styleUrl: './float-nav.component.css'
 })
 export class FloatNavComponent {
-  @Input() title: String = "";
+  @Input() title: String = ""
   @Output() toggleForm = new EventEmitter()
   @Output() deleteEvent = new EventEmitter()
   @Output() searchAction = new EventEmitter()
@@ -25,12 +25,15 @@ export class FloatNavComponent {
   readonly Plus = Plus
   readonly ArrowDownToLine = ArrowDownToLine
 
-  readonly iconStroke = 2;
-  iconSize = 25;
+  readonly iconStroke = 2
+  iconSize = 25
 
-  private readonly alertService = inject(TuiAlertService);
+  private readonly alertService = inject(TuiAlertService)
+  constructor(private clientPart: PartService) { }
 
-  constructor(private clientPart: PartService){}
+  ngOnInit() {
+    this.onResize()
+  }
 
   protected onClickBtnPlus() {
     this.toggleForm.emit()
@@ -40,12 +43,16 @@ export class FloatNavComponent {
     this.deleteEvent.emit()
   }
 
+  protected searchActionHanlder(searchObj: any) {
+    this.searchAction.emit(searchObj)
+  }
+
   protected onClickBtnArrowDownToLine() {
     this.clientPart.getPart().subscribe({
       next: (data) => {
-        const worksheet = XLSX.utils.json_to_sheet(data.parts);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Listagem de peças");
+        const worksheet = XLSX.utils.json_to_sheet(data.parts)
+        const workbook = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Listagem de peças")
         XLSX.writeFile(workbook, "Peças.xlsx", { compression: true })
       },
       error: (error) => {
@@ -55,20 +62,12 @@ export class FloatNavComponent {
   }
 
   protected showNotification(title: string, message: string, appearance: 'success' | 'destructive' | 'error' | 'warning'): void {
-    this.alertService.open(message, { label: title, appearance }).subscribe();
-  }
-
-  protected searchActionHanlder(searchObj: any) {
-    this.searchAction.emit(searchObj)
-  }
-
-  ngOnInit() {
-    this.onResize()
+    this.alertService.open(message, { label: title, appearance }).subscribe()
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event?: Event) {
-    const width = window.innerWidth;
-    this.iconSize = width < 1000 ? 20 : 25;
+    const width = window.innerWidth
+    this.iconSize = width < 1000 ? 20 : 25
   }
 }

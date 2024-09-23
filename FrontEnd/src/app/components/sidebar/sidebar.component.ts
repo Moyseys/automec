@@ -26,7 +26,7 @@ export class SidebarComponent {
 
   public currentRouter: String;
 
-  constructor(private activeRouter: ActivatedRoute, private router: Router) {
+  constructor(private router: Router) {
     this.currentRouter = router.url
   }
 

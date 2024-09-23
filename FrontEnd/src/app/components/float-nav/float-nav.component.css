@@ -43,14 +43,14 @@
   align-items: center;
   column-gap: 1em;
 
-  width: 20%;
+  width: 25%;
   height: 20%;
 }
 
 .btn {
   color: var(--secondary-color);
   height: 2.5em;
-  padding: 1em 0.5em 1em 0.5em;
+  padding: 0.5em 1em 0.5em 1em;
   border-radius: 5px;
 }
 .Plus{
@@ -86,7 +86,7 @@
       display: flex;
       align-items: center;
 
-      font-size: 30px;
+      font-size: 24px;
       height: 20%;
     }
 
@@ -95,24 +95,31 @@
       align-items: center;
       column-gap: 0.5em;
 
-      width: 20%;
+      width: 30%;
       height: 15%;
     }
 
     .Plus {
       color: var(--secondary-color);
+      padding: 0.2em 0.5em 0.2em 0.5em;
       height: 2em;
-      padding: 1.2em 0.5em 1.2em 0.5em;
 
       flex: 3;
       background-color: var(--tertiary-color);
       border-radius: 5px;
     }
 
+    .ArrowDownToLine {
+          height: 2em;
+          flex: 1;
+          background-color: #0c9c15ae;
+          padding: 0.2em 0.5em 0.2em 0.5em;
+        }
+
     .Trash {
       color: var(--secondary-color);
       height: 2em;
-      padding: 1.2em 0.5em 1.2em 0.5em;
+      padding: 0.2em 0.5em 0.2em 0.5em;
 
       flex: 1;
       background-color: #FF4B4B;
@@ -126,18 +133,25 @@
       height: 10em;
       padding: 1em 0 1em 0;
 
-      row-gap: 0em;
+      row-gap: 0.5em;
     }
+
+        .btn {
+          color: var(--secondary-color);
+          height: 2.5em;
+          padding: 1em 0.5em 1em 0.5em;
+          border-radius: 5px;
+        }
 
         .navGoup {
           width: 100%;
 
           display: flex;
-          flex-direction: row;
-          align-items: start;
-          justify-content: start;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
 
-          column-gap: 1em;
+          row-gap: 1em;
         }
 
     .searchBar {
@@ -146,37 +160,42 @@
 
     .title {
       text-align: start;
-      font-size: 12px;
-      margin-left: 3em;
+      font-size: 20px;
+      width: 80%;
     }
 
     .btnGroup {
       display: flex;
-      align-items: center;
-      column-gap: 0.2em;
+      column-gap: 0.7em;
+      align-items: start;
+      justify-items: start;
+      justify-content: start;
 
-      width: 20%;
-      height: 15%;
+      width: 80%;
+      height: 80%;
     }
 
     .Plus {
-      height: 2em;
-      padding: 1em;
+      padding: 0.2em 2em 0.2em 2em;
 
-      flex: 1;
+      height: 2em;
+
+      flex: 0;
     }
 
     .Trash {
+      padding: 0.2em 2em 0.2em 2em;
       height: 2em;
-      padding: 1em;
 
-      flex: 1;
+      flex: 0;
     }
 
     .ArrowDownToLine{
       height: 2em;
       padding: 1em;
 
-      flex: 1;
+      flex: 0;
     }
+
+
 }

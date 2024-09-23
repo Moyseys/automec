@@ -6,18 +6,15 @@
   flex-direction: column;
 }
 
-
 .btnHome {
   width: 7vh;
   height: 7vh;
   background-color: var(--tertiary-color);
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: var(--secondary-color);
-
   transition: background-color 0.3s ease;
 }
 
@@ -28,7 +25,6 @@
 .functionalities {
   background-color: var(--primary-color);
   height: 93vh;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,23 +37,19 @@
   height: 2em;
   background-color: #666666;
   padding: 0.7em;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  justify-items: center;
-
   color: var(--secondary-color);
   border-radius: 10px;
   transition: background-color 0.3s ease, border 0.3s ease;
 }
 
 .btnFunctionality:hover {
-  background-color: #8f540b
+  background-color: #8f540b;
 }
 
-/* Ícones */
 .iconCar,
 .iconPart,
 .iconHome {
@@ -69,26 +61,15 @@
   transform: scale(1.1);
 }
 
-.activeRouter{
+.activeRouter {
   color: var(--secondary-color);
   background-color: #e08d25;
 }
 
+/* Responsividade */
 @media (max-width: 500px) {
   .btnFunctionality {
-      width: 1em;
-      height: 1em;
-      background-color: #666666;
-      padding: 0.7em;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      justify-items: center;
-
-      color: var(--secondary-color);
-      border-radius: 10px;
-      transition: background-color 0.3s ease, border 0.3s ease;
-    }
+    width: 1em;
+    height: 1em;
+  }
 }
