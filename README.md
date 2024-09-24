@@ -4,7 +4,6 @@
 
 - [Automec repositório](https://github.com/Moyseys/automec)
 - [Design Figma](https://www.figma.com/design/Xxo5upk6sEN3jDbZsZLfI8/automec?node-id=0-1&t=oo1xklXGsIlBgE9S-1)
-- [Vídeo apresentação Automec](https://1drv.ms/v/s!AtSD-zjYedAQr8N4_HXDvSF8IcdfWA?e=0tbdhG)
 
 ## Inicialização
 
