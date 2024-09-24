@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common'
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { HttpErrorResponse } from '@angular/common/http'
-import { Observable, of } from 'rxjs'
 
 import { TuiAlertService, TuiDataList } from '@taiga-ui/core'
 import { TuiDataListWrapper, TuiFilterByInputPipe, TuiStringifyContentPipe } from '@taiga-ui/kit'
@@ -42,7 +41,7 @@ export class FormPartComponent {
   protected isDisabled = true
   protected stringify = (item: Part): string => `${item.brand} - ${item.model}`
 
-  protected partForm = new FormGroup({
+  public partForm = new FormGroup({
     partNumber: new FormControl<String>('', Validators.required),
     brand: new FormControl<String>('', Validators.required),
     model: new FormControl<String>('', Validators.required),
@@ -159,5 +158,9 @@ export class FormPartComponent {
 
   protected showNotification(title: string, message: string, appearance: 'success' | 'destructive' | 'error' | 'warning'): void {
     this.alertService.open(message, { label: title, appearance }).subscribe()
+  }
+
+  public getVehiclesList(): Vehicle[] {
+    return this.vehicles
   }
 }

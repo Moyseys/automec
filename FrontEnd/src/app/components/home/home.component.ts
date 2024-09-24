@@ -27,8 +27,10 @@ export class HomeComponent {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event?: Event) {
-    const width = window.innerWidth;
-    this.iconSize = width < 920 ? 70 : 100;
+    onResize(event?: Event) {
+      if (typeof window !== 'undefined') {
+      const width = window.innerWidth;
+      this.iconSize = width < 920 ? 70 : 100;
+    }
   }
 }

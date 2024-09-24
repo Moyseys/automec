@@ -1,4 +1,4 @@
-import { NgForOf } from '@angular/common'
+import { CommonModule, NgForOf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, inject, Output, signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { TuiTable, TuiTablePaginationEvent } from '@taiga-ui/addon-table'
@@ -33,6 +33,7 @@ import Vehicle from '../../../interfaces/Vehicle'
   selector: 'app-table',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     NgForOf,
     TuiAutoColorPipe,

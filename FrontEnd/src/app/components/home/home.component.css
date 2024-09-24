@@ -37,6 +37,13 @@
   border: 3px solid var(--primary-color);
   background-color: var(--secondary-color) DFA;
   border-radius: 20px;
+
+  transition: background-color 1s;
+  transition: background-color 0.5s
+}
+
+.btn:hover {
+  background-color: #33333811;
 }
 
 .description {

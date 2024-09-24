@@ -4,13 +4,8 @@ import { Observable } from 'rxjs'
 import Part from '../../interfaces/Part'
 import Brand from '../../interfaces/Brand'
 import { environment } from '../../environment/environment'
+import ResponseGetPart from '../../interfaces/ResponseGetPart'
 
-interface ResponseGetPart {
-  total: number,
-	totalOfPages: number,
-  currentPage: number,
-  parts: Part[]
-}
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +36,7 @@ export class PartService {
 
     return res
   }
+  
   putPart(partNumber: String, newPartNumber: String, brand: String, model: String, vehicles: number[]): Observable<Part> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
@@ -65,7 +61,6 @@ export class PartService {
 
     return res
   }
-
 
   get getClient(): HttpClient{
     return this.client
