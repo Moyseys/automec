@@ -1,10 +1,5 @@
 # Automec
 
-## Links
-
-- [Automec repositório](https://github.com/Moyseys/automec)
-- [Design Figma](https://www.figma.com/design/Xxo5upk6sEN3jDbZsZLfI8/automec?node-id=0-1&t=oo1xklXGsIlBgE9S-1)
-
 ## Inicialização
 
 ### Instale as dependências do Back-End.
